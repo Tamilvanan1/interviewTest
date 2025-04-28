@@ -10,18 +10,22 @@ const App = () => {
   const handleAddUser = async() => {
     try {
       const randomNumber = Math.floor(Math.random() * (100 - 1 + 1) ) + 1;
-      setListItems([...listItems , {name : "Tamil" , id : randomNumber}])
+      // setListItems([...listItems , {name : "Tamil" , id : randomNumber}])
 
-      // I have faced cors orgin issue thats why i worked with state handling only
 
       console.log("randomNumberrandomNumber",randomNumber)
-      const response = await axios.get(`https://swapi.dev/api/people/${randomNumber}`, {
+      // const response = await axios.get(`https://swapi.dev/api/people/${randomNumber}`, {
+      //   "Accept" : 'application/json',
+      // })
+
+      const response = await axios.get(`https://dummyjson.com/users/${randomNumber}`, {
         "Accept" : 'application/json',
       })
-      // .then(response => console.log("filterUser" ,response.json()))
 
-      console.log("responseresponse",response)
-      setListItems([...listItems , {name : "Tamil" , id : randomNumber}])
+
+      console.log("responseresponse",response?.data)
+      const userDetails = response?.data
+      setListItems([...listItems , {name : userDetails?.firstName , id : userDetails?.id}])
 
       
     } catch (error) {
